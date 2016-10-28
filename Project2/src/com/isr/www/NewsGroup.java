@@ -30,7 +30,7 @@ public class NewsGroup {
 			int count = 0;
 			int total = 0;
 			int c = 0;
-			for (Map.Entry<String,ArrayList<String>> entry : newsGroupMap.entrySet()) {
+			for (Map.Entry<String,ArrayList<String>> entry : newsGroupMap.entrySet()) {    //  counting words in dataset
 				for (String l : entry.getValue()) {
 					count = l.split("\\s").length;	
 					System.out.println("Count per line = "+count);
