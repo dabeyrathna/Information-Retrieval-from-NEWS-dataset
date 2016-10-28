@@ -46,7 +46,7 @@ public class NewsGroup {
 
 		catch (FileNotFoundException e) {
 			System.out.println("Check whether all the files are existing in current directory...");
-			System.out.println("End...");
+			System.out.println("End...!!");
 		}
 		finally{
 			readDataFile.close();
