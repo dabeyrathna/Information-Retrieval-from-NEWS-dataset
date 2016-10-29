@@ -86,7 +86,7 @@ public class NewsGroup {
 
 	public static void main(String[] args) {
 
-		Normalize normalize = new Normalize("newsGroup.txt"); 
+		Normalize normalize = new Normalize("newsGroups.txt"); 
 		normalize.checkWordCountVariations();
 	}
 
