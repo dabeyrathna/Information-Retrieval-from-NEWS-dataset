@@ -61,7 +61,7 @@ class Normalize{
 				total += count;
 				count = 0;					
 			}
-			System.out.println("\nNews Group "+ ++c +" Total word count ===>  "+ total+"\n\n");
+			System.out.println("\nNews Group "+ ++c +" Total word count ==>  "+ total+"\n\n");
 			total = 0;
 		}
 	}
@@ -87,7 +87,7 @@ public class NewsGroup {
 
 	public static void main(String[] args) {
 
-		Normalize normalize = new Normalize("newsGroup.txt");
+		Normalize normalize = new Normalize("newsGroup.txt"); 
 		normalize.checkWordCountVariations();
 	}
 
