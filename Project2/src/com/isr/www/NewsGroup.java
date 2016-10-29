@@ -8,35 +8,16 @@ import java.util.Map;
 import java.util.Scanner;
 
 class Normalize{
+	
+	Map<String, ArrayList<String>> newsGroupMap = new HashMap<String, ArrayList<String>>();
+	Map<String,Integer> maxMap;
 
-	public double getLogTwo(double num){
-		return Math.log(num) / Math.log(2);
+	public Normalize(String fileName) {
+		readDataset(fileName);
+		constructMaxFrequecyMap();
 	}
-
-	public void checkWordCountVariations(Map<String, ArrayList<String>> newsGroupMap){
-		int count = 0;
-		int total = 0;
-		int c = 0;
-		for (Map.Entry<String,ArrayList<String>> entry : newsGroupMap.entrySet()) {
-			for (String l : entry.getValue()) {
-				count = l.split("\\s").length;	
-				System.out.println("Count per line = "+count);
-				total += count;
-				count = 0;					
-			}
-			System.out.println("\nNews Group "+ ++c +" Total word count ===>  "+ total+"\n\n");
-			total = 0;
-		}
-	}
-}
-
-public class NewsGroup {
-
-	public static void main(String[] args) {
-		Map<String, ArrayList<String>> newsGroupMap = new HashMap<String, ArrayList<String>>();
-
-		Normalize normalize = new Normalize();
-
+	
+	public void readDataset(String fileName){
 		Scanner readDataFile = null;
 
 		try{
@@ -54,11 +35,6 @@ public class NewsGroup {
 					newsGroupMap.put(line[0], s);
 				}
 			}
-
-
-			normalize.checkWordCountVariations(newsGroupMap);
-
-
 		}
 
 		catch (FileNotFoundException e) {
@@ -68,7 +44,51 @@ public class NewsGroup {
 		finally{
 			readDataFile.close();
 		}
+	}
+	
+	public double getLogTwo(double num){
+		return Math.log(num) / Math.log(2);
+	}
 
+	public void checkWordCountVariations(){
+		int count = 0;
+		int total = 0;
+		int c = 0;
+		for (Map.Entry<String,ArrayList<String>> entry : newsGroupMap.entrySet()) {
+			for (String l : entry.getValue()) {
+				count = l.split("\\s").length;	
+				System.out.println("Count per line = "+count);
+				total += count;
+				count = 0;					
+			}
+			System.out.println("\nNews Group "+ ++c +" Total word count ===>  "+ total+"\n\n");
+			total = 0;
+		}
+	}
+	
+	public void logTf(String keyWord){
+		// display 20 newsgroup list according to rank + values
+	}
+	
+	public void doubleLogTf(String keyWord){
+		// display 20 newsgroup list according to rank + values
+	}
+	
+	public void rowTf(String keyWord){
+		// display 20 newsgroup list according to rank + values
+	}
+	
+	public void constructMaxFrequecyMap(){
+		maxMap = new HashMap<String, Integer>();
+	}
+}
+
+public class NewsGroup {
+
+	public static void main(String[] args) {
+
+		Normalize normalize = new Normalize("newsGroup.txt");
+		normalize.checkWordCountVariations();
 	}
 
 }
