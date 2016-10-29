@@ -21,7 +21,7 @@ class Normalize{
 		Scanner readDataFile = null;
 
 		try{
-			readDataFile = new Scanner(new File("newsGroups.txt"));
+			readDataFile = new Scanner(new File(fileName));
 
 			while(readDataFile.hasNext()){	
 
@@ -36,7 +36,6 @@ class Normalize{
 				}
 			}
 		}
-//sss
 		catch (FileNotFoundException e) {
 			System.out.println("Check whether all the files are existing in current directory..");
 			System.out.println("End...!!");
