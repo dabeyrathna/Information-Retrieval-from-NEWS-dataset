@@ -2,18 +2,46 @@ package com.isr.www;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+class Normalize{
+
+	public double getLogTwo(double num){
+		return Math.log(num) / Math.log(2);
+	}
+
+	public void checkWordCountVariations(Map<String, ArrayList<String>> newsGroupMap){
+		int count = 0;
+		int total = 0;
+		int c = 0;
+		for (Map.Entry<String,ArrayList<String>> entry : newsGroupMap.entrySet()) {
+			for (String l : entry.getValue()) {
+				count = l.split("\\s").length;	
+				System.out.println("Count per line = "+count);
+				total += count;
+				count = 0;					
+			}
+			System.out.println("\nNews Group "+ ++c +" Total word count ===>  "+ total+"\n\n");
+			total = 0;
+		}
+	}
+}
 
 public class NewsGroup {
 
 	public static void main(String[] args) {
 		Map<String, ArrayList<String>> newsGroupMap = new HashMap<String, ArrayList<String>>();
+
+		Normalize normalize = new Normalize();
+
 		Scanner readDataFile = null;
-		
+
 		try{
-			readDataFile = new Scanner(new File("qq.txt"));
-			
+			readDataFile = new Scanner(new File("newsGroups.txt"));
+
 			while(readDataFile.hasNext()){	
 
 				String[] line = readDataFile.nextLine().split("\\s",2);
@@ -26,22 +54,11 @@ public class NewsGroup {
 					newsGroupMap.put(line[0], s);
 				}
 			}
-			
 
-			int count = 0;
-			int total = 0;
-			int c = 0;
-			for (Map.Entry<String,ArrayList<String>> entry : newsGroupMap.entrySet()) {    //  counting words in dataset
-				for (String l : entry.getValue()) {
-					count = l.split("\\s").length;	
-					System.out.println("Count per line = "+count);
-					total += count;
-					count = 0;
-						
-				}
-				System.out.println("\nNews Group "+ ++c +" Total word count ===>  "+ total+"\n\n");
-				total = 0;
-			}
+
+			normalize.checkWordCountVariations(newsGroupMap);
+
+
 		}
 
 		catch (FileNotFoundException e) {
