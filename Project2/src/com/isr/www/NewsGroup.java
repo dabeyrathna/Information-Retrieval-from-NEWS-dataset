@@ -3,7 +3,11 @@ package com.isr.www;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -66,7 +70,11 @@ class Normalize{
 		}
 	}
 	
-	public void logTf(String keyWord){
+	public double logTf(String keyWord){
+		
+		return 0;
+		
+		
 		// display 20 newsgroup list according to rank + values
 	}
 	
@@ -75,8 +83,44 @@ class Normalize{
 	}
 	
 	public void rowTf(String keyWord){
-		// display 20 newsgroup list according to rank + values
+		Map<String,Integer> frequencyMap = new HashMap<String, Integer>();
+		int rowTfCount = 0;
+		for (Map.Entry<String,ArrayList<String>> entry : newsGroupMap.entrySet()) {
+			for (String l : entry.getValue()) {
+				for (String wordSet : l.split("\\s")) {
+					if(keyWord.equals(wordSet)){
+						rowTfCount++;
+						break;
+					}
+				}
+				
+			}
+			
+		//	System.out.print("In the NewsGroup "+ entry.getKey()+" the rwf for " +keyWord +" is :: ");
+		//	System.out.println(rowTfCount);
+			frequencyMap.put(entry.getKey(), rowTfCount);
+			rowTfCount=0;
+		}
+		
+		Object[] rwfArray = frequencyMap.entrySet().toArray();
+		int rank=1;
+		Arrays.sort(rwfArray, new Comparator() {
+		    public int compare(Object element1, Object element2) {
+		        return ((Map.Entry<String, Integer>) element2).getValue()
+		                   .compareTo(((Map.Entry<String, Integer>) element1).getValue());
+		    }
+		});
+		
+		System.out.println("The order of ranking for each news groups with raw frequency count is as follows::");
+		
+		for (Object element : rwfArray) {
+		    System.out.println("The raw frequency count for "+ keyWord +" in the newsgroup "+((Map.Entry<String, Integer>) element).getKey() + " is :: "
+		            + ((Map.Entry<String, Integer>) element).getValue() + "and the rank is "+ rank++);
+		}
+		
 	}
+		// display 20 newsgroup list according to rank + values
+
 	
 	public void constructMaxFrequecyMap(){
 		Map<String,Integer> maxMap = new HashMap<String, Integer>();
@@ -122,7 +166,9 @@ class Normalize{
 public class NewsGroup {
 
 	public static void main(String[] args) {
-		Normalize normalize = new Normalize("newsGroups.txt"); 
+		Normalize normalize = new Normalize("newsGroups.txt");
+		normalize.rowTf("polit");
+		
 	}
 
 }
