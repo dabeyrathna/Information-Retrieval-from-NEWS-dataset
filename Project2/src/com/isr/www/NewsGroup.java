@@ -84,6 +84,7 @@ class Normalize{
 				}
 				
 			}
+			
 			if(rowTfCount!=0){
 			logTf = 1+getLogTwo(rowTfCount);
 			}else{
@@ -94,24 +95,23 @@ class Normalize{
 			frequencyMap.put(entry.getKey(),logTf);
 			rowTfCount=0;
 			logTf=0d;
-			Object[] rwfArray = frequencyMap.entrySet().toArray();
-			int rank=1;
-			Arrays.sort(rwfArray, new Comparator() {
-			    public int compare(Object element1, Object element2) {
-			        return ((Map.Entry<String, Double>) element2).getValue()
-			                   .compareTo(((Map.Entry<String, Double>) element1).getValue());
-			    }
-			});
-			
-			System.out.println("The order of ranking for each news groups with log of raw frequency count is as follows::");
-			
-			for (Object element : rwfArray) {
-			    System.out.println("The log frequency count for "+ keyWord +" in the newsgroup "+((Map.Entry<String, Double>) element).getKey() + " is :: "
-			            + ((Map.Entry<String, Double>) element).getValue() + "and the rank is "+ rank++); }
-			
-		//	ranking(frequencyMap,keyWord);
-			
 		}
+		Object[] rwfArray = frequencyMap.entrySet().toArray();
+		int rank=1;
+		Arrays.sort(rwfArray, new Comparator() {
+		    public int compare(Object element1, Object element2) {
+		        return ((Map.Entry<String, Double>) element2).getValue()
+		                   .compareTo(((Map.Entry<String, Double>) element1).getValue());
+		    }
+		});
+		
+		System.out.println("The order of ranking for each news groups with log of raw frequency count is as follows::");
+		
+		for (Object element : rwfArray) {
+		    System.out.println("The log of raw frequency count for "+ keyWord +" in the newsgroup "+((Map.Entry<String, Double>) element).getKey() + " is :: "
+		            + ((Map.Entry<String, Double>) element).getValue() + "and the rank is "+ rank++); }
+			
+		
 		
 		
 		// display 20 newsgroup list according to rank + values
@@ -209,6 +209,7 @@ public class NewsGroup {
 	public static void main(String[] args) {
 		Normalize normalize = new Normalize("newsGroups.txt");
 		normalize.rowTf("polit");
+		System.out.println("=====================================================");
 		normalize.logTf("polit");
 		
 	}
