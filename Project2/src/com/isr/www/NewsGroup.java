@@ -70,9 +70,48 @@ class Normalize{
 		}
 	}
 	
-	public double logTf(String keyWord){
-		
-		return 0;
+	public void logTf(String keyWord){
+		double logTf= 0d;
+		Map<String,Double> frequencyMap = new HashMap<String, Double>();
+		int rowTfCount = 0;
+		for (Map.Entry<String,ArrayList<String>> entry : newsGroupMap.entrySet()) {
+			for (String l : entry.getValue()) {
+				for (String wordSet : l.split("\\s")) {
+					if(keyWord.equals(wordSet)){
+						rowTfCount++;
+						break;
+					}
+				}
+				
+			}
+			if(rowTfCount!=0){
+			logTf = 1+getLogTwo(rowTfCount);
+			}else{
+				logTf=0d;	
+			}
+			//System.out.print("In the NewsGroup "+ entry.getKey()+" the logTf for " +keyWord +" is :: ");
+			//System.out.println(logTf);
+			frequencyMap.put(entry.getKey(),logTf);
+			rowTfCount=0;
+			logTf=0d;
+			Object[] rwfArray = frequencyMap.entrySet().toArray();
+			int rank=1;
+			Arrays.sort(rwfArray, new Comparator() {
+			    public int compare(Object element1, Object element2) {
+			        return ((Map.Entry<String, Double>) element2).getValue()
+			                   .compareTo(((Map.Entry<String, Double>) element1).getValue());
+			    }
+			});
+			
+			System.out.println("The order of ranking for each news groups with log of raw frequency count is as follows::");
+			
+			for (Object element : rwfArray) {
+			    System.out.println("The log frequency count for "+ keyWord +" in the newsgroup "+((Map.Entry<String, Double>) element).getKey() + " is :: "
+			            + ((Map.Entry<String, Double>) element).getValue() + "and the rank is "+ rank++); }
+			
+		//	ranking(frequencyMap,keyWord);
+			
+		}
 		
 		
 		// display 20 newsgroup list according to rank + values
@@ -80,6 +119,24 @@ class Normalize{
 	
 	public void doubleLogTf(String keyWord){
 		// display 20 newsgroup list according to rank + values
+	}
+	
+	public void ranking(Map frequencyMap,String keyWord){
+		Object[] rwfArray = frequencyMap.entrySet().toArray();
+		int rank=1;
+		Arrays.sort(rwfArray, new Comparator() {
+		    public int compare(Object element1, Object element2) {
+		        return ((Map.Entry<String, Integer>) element2).getValue()
+		                   .compareTo(((Map.Entry<String, Integer>) element1).getValue());
+		    }
+		});
+		
+		System.out.println("The order of ranking for each news groups with raw frequency count is as follows::");
+		
+		for (Object element : rwfArray) {
+		    System.out.println("The raw frequency count for "+ keyWord +" in the newsgroup "+((Map.Entry<String, Integer>) element).getKey() + " is :: "
+		            + ((Map.Entry<String, Integer>) element).getValue() + "and the rank is "+ rank++); }
+		
 	}
 	
 	public void rowTf(String keyWord){
@@ -101,23 +158,7 @@ class Normalize{
 			frequencyMap.put(entry.getKey(), rowTfCount);
 			rowTfCount=0;
 		}
-		
-		Object[] rwfArray = frequencyMap.entrySet().toArray();
-		int rank=1;
-		Arrays.sort(rwfArray, new Comparator() {
-		    public int compare(Object element1, Object element2) {
-		        return ((Map.Entry<String, Integer>) element2).getValue()
-		                   .compareTo(((Map.Entry<String, Integer>) element1).getValue());
-		    }
-		});
-		
-		System.out.println("The order of ranking for each news groups with raw frequency count is as follows::");
-		
-		for (Object element : rwfArray) {
-		    System.out.println("The raw frequency count for "+ keyWord +" in the newsgroup "+((Map.Entry<String, Integer>) element).getKey() + " is :: "
-		            + ((Map.Entry<String, Integer>) element).getValue() + "and the rank is "+ rank++);
-		}
-		
+		ranking(frequencyMap,keyWord);
 	}
 		// display 20 newsgroup list according to rank + values
 
@@ -168,6 +209,7 @@ public class NewsGroup {
 	public static void main(String[] args) {
 		Normalize normalize = new Normalize("newsGroups.txt");
 		normalize.rowTf("polit");
+		normalize.logTf("polit");
 		
 	}
 
