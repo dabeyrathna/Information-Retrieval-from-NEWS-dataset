@@ -205,7 +205,7 @@ class Normalize{
 		String m ="";
 		for (Map.Entry<String, Integer> entry : maxMap.entrySet())
 		{
-			temp = entry.getValue();                          ////////////// we can use this method do find most frequent words in several newsgroup. for now just max 
+			temp = entry.getValue();                           
 			if (temp > max){
 				max = temp;
 				m = entry.getKey();
