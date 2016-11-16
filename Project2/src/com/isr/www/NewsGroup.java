@@ -168,8 +168,8 @@ class Normalize{
 			else{
 				System.out.print("The raw frequency count for ");
 			}
-			System.out.println(keyWord +" in the newsgroup "+element.getKey() + " is ::  "
-					+ element.getValue() + " and the rank is "+ rank++); 
+			System.out.println(keyWord +" in the newsgroup "+element.getKey() + " is ::\t"
+					+ element.getValue() + " and the rank is\t"+ rank++); 
 		}
 
 	}
@@ -220,15 +220,16 @@ public class NewsGroup {
 
 	public static void main(String[] args) {
 		Normalize normalize = new Normalize("newsGroups.txt");
+		String term = "point";
 		System.out.println("\n============================================================================================\n");
 		System.out.println("Raw frequency ranks are as follows::\n\n");
-		normalize.rowTf("polit");
+		normalize.rowTf(term);
 		System.out.println("\n===========================================================================================\n");
 		System.out.println("Log of raw frequency ranks are as follows::\n\n");
-		normalize.logTf("polit");
+		normalize.logTf(term);
 		System.out.println("\n============================================================================================\n");
 		System.out.println("Double log of row frequency ranks are as follows::\n\n");
-		normalize.doubleLogTf("polit");
+		normalize.doubleLogTf(term);
 
 
 	}
