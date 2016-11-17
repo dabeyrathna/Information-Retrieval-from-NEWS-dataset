@@ -111,7 +111,7 @@ class Normalize{
 				}
 			}
 			if(rowTfCount!=0){
-				logTf = 1-getLogTwo(rowTfCount/(double)countMap.get(entry.getKey()));
+				logTf = 10-Math.abs(1+getLogTwo(rowTfCount/(double)countMap.get(entry.getKey())));
 			}else{
 				logTf=0d;	
 			}
@@ -180,12 +180,7 @@ class Normalize{
 		Collections.sort(entryList, new Comparator<Map.Entry<String, Double>>() {
 			public int compare(Map.Entry<String, Double> o1,
 					Map.Entry<String, Double> o2) {
-				if(logOperation.equals("LogRowTF")){
 					return o1.getValue() < o2.getValue() ? 1 : -1;
-				}
-				else{
-					return o1.getValue() > o2.getValue() ? 1 : -1;
-				}
 			}
 		});
 
@@ -251,7 +246,7 @@ public class NewsGroup {
 
 	public static void main(String[] args) {
 		Normalize normalize = new Normalize("newsGroups.txt");
-		String term = "point";
+		String term = "polit";
 		System.out.println("\n============================================================================================\n");
 		System.out.println("Raw frequency ranks are as follows::\n\n");
 		normalize.rowTf(term);
